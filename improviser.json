@@ -1,0 +1,1440 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "improviser",
+    "description": "A restful api for the iMproviser",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "//api.improviser.education/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "tags",
+      "description": "Tag related operations"
+    },
+    {
+      "name": "riffs",
+      "description": "Riff related operations"
+    },
+    {
+      "name": "riffs-to-tags",
+      "description": "Riff to tag related operations"
+    },
+    {
+      "name": "exercises",
+      "description": "Exercise related operations"
+    },
+    {
+      "name": "recent-exercises",
+      "description": "Recent Exercise related operations"
+    },
+    {
+      "name": "exercises-to-tags",
+      "description": "Exercise to tag related operations"
+    },
+    {
+      "name": "backing tracks",
+      "description": "BackingTrack related operations"
+    },
+    {
+      "name": "lessons",
+      "description": "Lesson related operations"
+    },
+    {
+      "name": "users",
+      "description": "User related operations"
+    }
+  ],
+  "paths": {
+    "/v1/backing-tracks/": {
+      "get": {
+        "tags": [
+          "backing tracks"
+        ],
+        "operationId": "get_backing_track_resource_list",
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Pagination: default=[0,19]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort: default=[\"name\",\"ASC\"]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter default=[]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "backing tracks"
+        ],
+        "operationId": "post_backing_track_resource_list",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "file",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/backing-tracks/for/{exercise_id}": {
+      "get": {
+        "tags": [
+          "backing tracks"
+        ],
+        "summary": "First check if a backing track is found that matches total length of exercise",
+        "description": "Then check if backing tracks can be found for COMMON_MULTIPLIERS that match the beginning of this song",
+        "operationId": "get_backing_track_wizard_resource_list",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "exercise_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/backing-tracks/{id}": {
+      "get": {
+        "tags": [
+          "backing tracks"
+        ],
+        "summary": "List Image",
+        "operationId": "get_backing_track_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "backing tracks"
+        ],
+        "operationId": "put_backing_track_resource",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "file",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/exercises-to-tags/": {
+      "get": {
+        "tags": [
+          "exercises-to-tags"
+        ],
+        "summary": "List tags for a exercise",
+        "operationId": "get_exercises_to_tags_resource_list",
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Pagination: default=[0,19]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort: default=[\"name\",\"ASC\"]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter default=[]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "exercises-to-tags"
+        ],
+        "summary": "New ExerciseToTag",
+        "operationId": "post_exercises_to_tags_resource_list",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExerciseToTag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExerciseToTag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/exercises-to-tags/{id}": {
+      "get": {
+        "tags": [
+          "exercises-to-tags"
+        ],
+        "summary": "List ExerciseToTag",
+        "operationId": "get_exercises_to_tags_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "exercises-to-tags"
+        ],
+        "summary": "Edit ExerciseToTag",
+        "operationId": "put_exercises_to_tags_resource",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExerciseToTag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExerciseToTag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/exercises/": {
+      "get": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "get_exercise_resource_list",
+        "parameters": [
+          {
+            "name": "search_phrase",
+            "in": "query",
+            "description": "Return only items that contain the search_phrase",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "post_exercise_resource_list",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/exercises/copy/{exercise_id}": {
+      "post": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "post_copy_exercise_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "exercise_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/exercises/scales": {
+      "get": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "get_scale_trainer_resource_list",
+        "parameters": [
+          {
+            "name": "search_phrase",
+            "in": "query",
+            "description": "Return only items that contain the search_phrase",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/exercises/transpose-riff": {
+      "post": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "post_transpose",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/exercises/transpose-riffs": {
+      "post": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "post_transpose",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/exercises/validate-exercise-name/{name}": {
+      "get": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "get_validate_exercise_name_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/exercises/{exercise_id}": {
+      "get": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "get_exercise_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "exercises"
+        ],
+        "operationId": "put_exercise_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "exercise_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/lessons/": {
+      "get": {
+        "tags": [
+          "lessons"
+        ],
+        "operationId": "get_lesson_resource_list",
+        "parameters": [
+          {
+            "name": "search_phrase",
+            "in": "query",
+            "description": "Return only items that contain the search_phrase",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "lessons"
+        ],
+        "operationId": "post_lesson_resource_list",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Exercise"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/recent-exercises/": {
+      "get": {
+        "tags": [
+          "recent-exercises"
+        ],
+        "summary": "List RecentExercises",
+        "operationId": "get_recent_exercise_resource_list",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "recent-exercises"
+        ],
+        "operationId": "post_recent_exercise_resource_list",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecentExercise"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecentExercise"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/riffs-to-tags/": {
+      "get": {
+        "tags": [
+          "riffs-to-tags"
+        ],
+        "summary": "List tags for a riff",
+        "operationId": "get_riffs_to_tags_resource_list",
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Pagination: default=[0,19]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort: default=[\"name\",\"ASC\"]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter default=[]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "riffs-to-tags"
+        ],
+        "summary": "New RiffToTag",
+        "operationId": "post_riffs_to_tags_resource_list",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiffToTag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiffToTag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/riffs-to-tags/{id}": {
+      "get": {
+        "tags": [
+          "riffs-to-tags"
+        ],
+        "summary": "List RiffToTag",
+        "operationId": "get_riffs_to_tags_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "riffs-to-tags"
+        ],
+        "summary": "Edit RiffToTag",
+        "operationId": "put_riffs_to_tags_resource",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiffToTag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiffToTag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/riffs/": {
+      "get": {
+        "tags": [
+          "riffs"
+        ],
+        "operationId": "get_riff_resource_list",
+        "parameters": [
+          {
+            "name": "search_phrase",
+            "in": "query",
+            "description": "Return only items that contain the search_phrase",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "riffs"
+        ],
+        "operationId": "post_riff_resource_list",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Riff"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Riff"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/riffs/rendered/{id}": {
+      "put": {
+        "tags": [
+          "riffs"
+        ],
+        "operationId": "put_riff_resource_rendered",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderedRiff"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/riffs/unrendered": {
+      "get": {
+        "tags": [
+          "riffs"
+        ],
+        "operationId": "get_unrendered_riff_resource_list",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/riffs/{id}": {
+      "get": {
+        "tags": [
+          "riffs"
+        ],
+        "operationId": "get_riff_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "riffs"
+        ],
+        "summary": "Edit Tag",
+        "operationId": "put_riff_resource",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Riff"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Riff"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      },
+      "delete": {
+        "tags": [
+          "riffs"
+        ],
+        "summary": "Edit Tag",
+        "operationId": "delete_riff_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/tags/": {
+      "get": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "List Tags",
+        "operationId": "get_tag_resource_list",
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Pagination: default=[0,19]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort: default=[\"name\",\"ASC\"]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter default=[]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "New Tag",
+        "operationId": "post_tag_resource_list",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/tags/{id}": {
+      "get": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "List Tag",
+        "operationId": "get_tag_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "Edit Tag",
+        "operationId": "put_tag_resource",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "description": "An optional fields mask",
+            "schema": {
+              "type": "string",
+              "format": "mask"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tag"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/users/": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_user_resource_list",
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Pagination: default=[0,19]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort: default=[\"name\",\"ASC\"]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter default=[]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/users/current-user": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_user_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/users/instruments": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_instrument_resource_list",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/users/me": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_user_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v1/users/preferences": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_user_preference_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "patch_user_preference_resource",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPreference"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "payload"
+      }
+    },
+    "/v1/users/validate-email/{email}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_validate_email_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "email",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v1/users/validate-username/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "get_validate_username_resource",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tag": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique tag name"
+          }
+        }
+      },
+      "Riff": {
+        "required": [
+          "name",
+          "notes",
+          "number_of_bars"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique riff name"
+          },
+          "number_of_bars": {
+            "type": "integer",
+            "description": "Number of bars"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Lilypond representation of the riff"
+          },
+          "chord": {
+            "type": "string",
+            "description": "Chord if known"
+          },
+          "multi_chord": {
+            "type": "boolean",
+            "description": "Multiple chords in this riff?"
+          },
+          "scale_trainer_enabled": {
+            "type": "boolean",
+            "description": "Show this riff in the scale trainer?"
+          },
+          "chord_info": {
+            "type": "string"
+          }
+        }
+      },
+      "RenderedRiff": {
+        "required": [
+          "render_valid"
+        ],
+        "type": "object",
+        "properties": {
+          "render_valid": {
+            "type": "boolean",
+            "description": "Whether a render is deemed valid."
+          },
+          "image_info": {
+            "type": "string",
+            "description": "The metainfo for all images for this riff, per key, octave"
+          }
+        }
+      },
+      "RiffToTag": {
+        "required": [
+          "riff_id",
+          "tag_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tag_id": {
+            "type": "string",
+            "description": "Tag Id"
+          },
+          "riff_id": {
+            "type": "string",
+            "description": "Riff Id"
+          }
+        }
+      },
+      "RecentExercise": {
+        "required": [
+          "riff_exercise_id"
+        ],
+        "type": "object",
+        "properties": {
+          "riff_exercise_id": {
+            "type": "string",
+            "description": "Exercise Id"
+          }
+        }
+      },
+      "ExerciseToTag": {
+        "required": [
+          "riff_exercise_id",
+          "tag_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tag_id": {
+            "type": "string",
+            "description": "Tag Id"
+          },
+          "riff_exercise_id": {
+            "type": "string",
+            "description": "Exercise Id"
+          }
+        }
+      },
+      "Exercise": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description as shown in the lesson list and overviews"
+          }
+        }
+      },
+      "UserPreference": {
+        "type": "object",
+        "properties": {
+          "instrument_id": {
+            "type": "string",
+            "description": "Id of users instrument"
+          },
+          "language": {
+            "type": "string",
+            "description": "Preferred language"
+          }
+        }
+      }
+    },
+    "responses": {
+      "MaskError": {
+        "description": "When any error occurs on mask",
+        "content": {}
+      },
+      "ParseError": {
+        "description": "When a mask can't be parsed",
+        "content": {}
+      }
+    }
+  }
+}
