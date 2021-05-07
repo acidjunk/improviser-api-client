@@ -19,3 +19,6 @@ Generated a client with:
 ```bash
 openapi-python-client generate --path improviser.json
 ```
+
+>> Note: I had to change the name in the .json to "improviser", iMproviser generated a very weird name:
+> i-improviser-client
